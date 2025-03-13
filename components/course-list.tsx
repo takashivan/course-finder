@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import type { Course } from "@/types/course";
-// import { useFavorites } from "../hooks/usefavorite";
+import { useFavorites } from "@/hooks/use-favorite";
 import { Button } from "@/components/ui/button";
 import {
   Table,
@@ -28,7 +28,7 @@ interface CourseListProps {
 export default function CourseList({ courses }: CourseListProps) {
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  // const { toggleFavorite, isFavorite } = useFavorites();
+  const { toggleFavorite, isFavorite } = useFavorites();
 
   const handleCourseClick = (course: Course) => {
     setSelectedCourse(course);
@@ -68,7 +68,7 @@ export default function CourseList({ courses }: CourseListProps) {
               courses.map((course) => (
                 <TableRow key={course.id}>
                   <TableCell>
-                    {/* <Button
+                    <Button
                       variant="ghost"
                       size="icon"
                       onClick={() => toggleFavorite(course.id)}>
@@ -79,7 +79,7 @@ export default function CourseList({ courses }: CourseListProps) {
                             : "text-gray-500"
                         }`}
                       />
-                    </Button> */}
+                    </Button>
                   </TableCell>
                   <TableCell className="font-medium">{course.id}</TableCell>
                   <TableCell>{course.name}</TableCell>
