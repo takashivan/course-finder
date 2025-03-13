@@ -28,20 +28,20 @@ export default function FavoritesPage() {
 
   // 春期のコースをフィルタリング
   const springCourses = favoriteCourses.filter(
-    (course) => course.term === "春学期" || course.term === "通年"
+    (course) => course.term === "Spring" || course.term === "Full"
   );
 
   // 秋期のコースをフィルタリング
   const fallCourses = favoriteCourses.filter(
-    (course) => course.term === "秋学期" || course.term === "通年"
+    (course) => course.term === "Fall" || course.term === "Full"
   );
 
   // その他のコースをフィルタリング
   const otherCourses = favoriteCourses.filter(
     (course) =>
-      course.term !== "春学期" &&
-      course.term !== "秋学期" &&
-      course.term !== "通年"
+      course.term !== "Spring" &&
+      course.term !== "Fall" &&
+      course.term !== "Full"
   );
 
   return (

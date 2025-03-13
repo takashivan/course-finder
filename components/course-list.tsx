@@ -125,7 +125,7 @@ export default function CourseList({ courses }: CourseListProps) {
                     {selectedCourse.id} - {selectedCourse.department}
                   </DialogDescription>
                 </div>
-                {/* <Button
+                <Button
                   variant="ghost"
                   size="icon"
                   onClick={() => toggleFavorite(selectedCourse.id)}>
@@ -136,7 +136,7 @@ export default function CourseList({ courses }: CourseListProps) {
                         : "text-gray-500"
                     }`}
                   />
-                </Button> */}
+                </Button>
               </div>
             </DialogHeader>
             <div className="space-y-4 py-4">
