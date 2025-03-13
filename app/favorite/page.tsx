@@ -10,8 +10,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function FavoritesPage() {
   const [courses, setCourses] = useState<Course[]>([]);
-  const { favorites } = useFavorites();
   const [favoriteCourses, setFavoriteCourses] = useState<Course[]>([]);
+  const { favorites } = useFavorites();
 
   useEffect(() => {
     const loadCourses = async () => {
@@ -26,39 +26,104 @@ export default function FavoritesPage() {
     setFavoriteCourses(filtered);
   }, [favorites, courses]);
 
+  // 春期のコースをフィルタリング
+  const springCourses = favoriteCourses.filter(
+    (course) => course.term === "春学期" || course.term === "通年"
+  );
+
+  // 秋期のコースをフィルタリング
+  const fallCourses = favoriteCourses.filter(
+    (course) => course.term === "秋学期" || course.term === "通年"
+  );
+
+  // その他のコースをフィルタリング
+  const otherCourses = favoriteCourses.filter(
+    (course) =>
+      course.term !== "春学期" &&
+      course.term !== "秋学期" &&
+      course.term !== "通年"
+  );
+
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-2xl font-bold mb-4">お気に入りの講座</h1>
 
-      <Tabs defaultValue="list">
+      <Tabs defaultValue="spring">
         <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="list">リスト</TabsTrigger>
-          <TabsTrigger value="schedule">週間スケジュール</TabsTrigger>
-          <TabsTrigger value="calendar">カレンダー</TabsTrigger>
+          <TabsTrigger value="spring">春学期</TabsTrigger>
+          <TabsTrigger value="fall">秋学期</TabsTrigger>
+          <TabsTrigger value="other">その他</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="list">
-          {favoriteCourses.length > 0 ? (
-            <CourseList courses={favoriteCourses} />
-          ) : (
-            <p className="text-center text-gray-500">
-              お気に入りの講座はまだありません
-            </p>
-          )}
+        {/* 春学期 */}
+        <TabsContent value="spring">
+          <Tabs defaultValue="spring-list">
+            <TabsList className="grid w-full grid-cols-2 my-4">
+              <TabsTrigger value="spring-list">リスト</TabsTrigger>
+              <TabsTrigger value="spring-schedule">スケジュール</TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="spring-list">
+              {springCourses.length > 0 ? (
+                <CourseList courses={springCourses} />
+              ) : (
+                <p className="text-center text-gray-500">
+                  春学期のお気に入り講座はありません
+                </p>
+              )}
+            </TabsContent>
+
+            <TabsContent value="spring-schedule">
+              {springCourses.length > 0 ? (
+                <WeeklySchedule courses={springCourses} />
+              ) : (
+                <p className="text-center text-gray-500">
+                  春学期のお気に入り講座はありません
+                </p>
+              )}
+            </TabsContent>
+          </Tabs>
         </TabsContent>
 
-        <TabsContent value="schedule">
-          {favoriteCourses.length > 0 ? (
-            <WeeklySchedule courses={favoriteCourses} />
-          ) : (
-            <p className="text-center text-gray-500">
-              お気に入りの講座はまだありません
-            </p>
-          )}
+        {/* 秋学期 */}
+        <TabsContent value="fall">
+          <Tabs defaultValue="fall-list">
+            <TabsList className="grid w-full grid-cols-2 my-4">
+              <TabsTrigger value="fall-list">リスト</TabsTrigger>
+              <TabsTrigger value="fall-schedule">スケジュール</TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="fall-list">
+              {fallCourses.length > 0 ? (
+                <CourseList courses={fallCourses} />
+              ) : (
+                <p className="text-center text-gray-500">
+                  秋学期のお気に入り講座はありません
+                </p>
+              )}
+            </TabsContent>
+
+            <TabsContent value="fall-schedule">
+              {fallCourses.length > 0 ? (
+                <WeeklySchedule courses={fallCourses} />
+              ) : (
+                <p className="text-center text-gray-500">
+                  秋学期のお気に入り講座はありません
+                </p>
+              )}
+            </TabsContent>
+          </Tabs>
         </TabsContent>
 
-        <TabsContent value="calendar">
-          {/* カレンダーコンポーネントがあれば */}
+        {/* その他 */}
+        <TabsContent value="other">
+          {otherCourses.length > 0 ? (
+            <CourseList courses={otherCourses} />
+          ) : (
+            <p className="text-center text-gray-500">
+              その他のお気に入り講座はありません
+            </p>
+          )}
         </TabsContent>
       </Tabs>
     </div>

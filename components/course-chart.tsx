@@ -11,7 +11,7 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { Star, Clock, Heart } from "lucide-react";
-// import { useFavorites } from "../hooks/usefavorite";
+import { useFavorites } from "@/hooks/use-favorite";
 import { Button } from "@/components/ui/button";
 
 Chart.register(...registerables);
@@ -24,7 +24,7 @@ export default function CourseChart({ courses }: CourseChartProps) {
   const chartRef = useRef<HTMLCanvasElement>(null);
   const chartInstance = useRef<Chart | null>(null);
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
-  // const { toggleFavorite, isFavorite } = useFavorites();
+  const { toggleFavorite, isFavorite } = useFavorites();
 
   useEffect(() => {
     if (!chartRef.current) return;
@@ -150,7 +150,7 @@ export default function CourseChart({ courses }: CourseChartProps) {
                     {selectedCourse.id} - {selectedCourse.department}
                   </DialogDescription>
                 </div>
-                {/* <Button
+                <Button
                   variant="ghost"
                   size="icon"
                   onClick={() => toggleFavorite(selectedCourse.id)}>
@@ -161,7 +161,7 @@ export default function CourseChart({ courses }: CourseChartProps) {
                         : "text-gray-500"
                     }`}
                   />
-                </Button> */}
+                </Button>
               </div>
             </DialogHeader>
             <div className="space-y-4 py-4">

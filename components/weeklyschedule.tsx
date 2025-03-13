@@ -4,13 +4,23 @@ import React from "react";
 import type { Course } from "@/types/course";
 
 const WeeklySchedule = ({ courses }: { courses: Course[] }) => {
-  // 曜日と時間を整理
-  const daysOrder = ["月", "火", "水", "木", "金", "土", "日"];
+  // 曜日の変換マップ
+  const dayMap: { [key: string]: string } = {
+    Mon: "Mon",
+    Tue: "Tue",
+    Wed: "Wed",
+    Thu: "Thu",
+    Fri: "Fri",
+    Sat: "Sat",
+    Sun: "Sun",
+  };
+
+  const daysOrder = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
   return (
     <div className="w-full border rounded-lg overflow-hidden">
       <div className="grid grid-cols-8 bg-gray-100 font-bold text-center">
-        <div className="p-2 border-r">時間</div>
+        <div className="p-2 border-r">Time</div>
         {daysOrder.map((day) => (
           <div key={day} className="p-2 border-r">
             {day}
@@ -29,10 +39,15 @@ const WeeklySchedule = ({ courses }: { courses: Course[] }) => {
         <div key={timeSlot} className="grid grid-cols-8 text-center">
           <div className="p-2 border-r bg-gray-50">{timeSlot}</div>
           {daysOrder.map((day) => {
-            // 該当する時間帯とその曜日の講座を検索
-            const matchingCourses = courses.filter(
-              (course) => course.days.includes(day) && course.time === timeSlot
-            );
+            const matchingCourses = courses.filter((course) => {
+              // 曜日のマッチングロジック
+              const courseDays = course.days.split(/[,、]\s*/).map((d) => {
+                const trimmedDay = d.trim();
+                return dayMap[trimmedDay] || trimmedDay;
+              });
+
+              return courseDays.includes(day);
+            });
 
             return (
               <div
