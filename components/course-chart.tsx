@@ -50,7 +50,7 @@ export default function CourseChart({ courses }: CourseChartProps) {
       data: {
         datasets: [
           {
-            label: "講座評価と作業量",
+            label: "Course Rating and Workload",
             data: data,
             backgroundColor: "rgba(75, 192, 192, 0.6)",
             borderColor: "rgba(75, 192, 192, 1)",

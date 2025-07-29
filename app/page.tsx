@@ -62,9 +62,7 @@ export default function HomePage() {
 
   return (
     <main className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8 text-center">
-        KCF Kennedy Course Finder
-      </h1>
+      <h1 className="text-3xl font-bold mb-8 text-center">HKS Course Viewer</h1>
 
       {isLoading ? (
         <div className="flex justify-center my-12">

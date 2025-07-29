@@ -23,8 +23,9 @@ export async function fetchCourseData(): Promise<Course[]> {
               term: String(row.term || ""),
               department: String(row.department || ""),
               rating:
-                row.rating !== undefined && row.rating !== null
-                  ? Number(row.rating)
+                row.instructor_rating !== undefined &&
+                row.instructor_rating !== null
+                  ? Number(row.instructor_rating)
                   : null,
               workload:
                 row.workload !== undefined && row.workload !== null
