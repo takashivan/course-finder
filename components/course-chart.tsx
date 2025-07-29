@@ -207,9 +207,9 @@ export default function CourseChart({ courses }: CourseChartProps) {
               </div>
 
               {selectedCourse.japaneseComments && (
-                <div className="space-y-1">
+                <div className="mt-4 space-y-1">
                   <p className="text-sm font-medium">コメント</p>
-                  <div className="bg-gray-50 p-3 rounded-md text-sm">
+                  <div className="bg-gray-50 p-3 rounded-md text-sm h-40 overflow-y-scroll">
                     {selectedCourse.japaneseComments}
                   </div>
                 </div>

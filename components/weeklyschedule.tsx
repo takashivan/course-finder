@@ -1,8 +1,22 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import type { Course } from "@/types/course";
+import { useFavorites } from "@/hooks/use-favorite";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Star, Clock, Heart } from "lucide-react";
+import { Button } from "@/components/ui/button";
+
 const WeeklySchedule = ({ courses }: { courses: Course[] }) => {
+  const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const { toggleFavorite, isFavorite } = useFavorites();
   // 時間を分に変換する関数
   const timeToMinutes = (timeStr: string) => {
     console.log("Converting time:", timeStr);
@@ -146,7 +160,11 @@ const WeeklySchedule = ({ courses }: { courses: Course[] }) => {
                 {matchingCourses.map((course) => (
                   <div
                     key={course.id}
-                    className="bg-blue-100 rounded p-1 mb-1 text-xs">
+                    className="bg-blue-100 rounded p-1 mb-1 text-xs cursor-pointer hover:bg-blue-200"
+                    onClick={() => {
+                      setSelectedCourse(course);
+                      setIsDialogOpen(true);
+                    }}>
                     {course.name}
                     <br />
                     {course.instructor}
@@ -157,6 +175,85 @@ const WeeklySchedule = ({ courses }: { courses: Course[] }) => {
           })}
         </div>
       ))}
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        {selectedCourse && (
+          <DialogContent className="sm:max-w-md">
+            <DialogHeader>
+              <div className="flex items-center justify-between">
+                <div>
+                  <DialogTitle>{selectedCourse.name}</DialogTitle>
+                  <DialogDescription>
+                    {selectedCourse.id} - {selectedCourse.department}
+                  </DialogDescription>
+                </div>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => toggleFavorite(selectedCourse.id)}>
+                  <Heart
+                    className={`w-5 h-5 ${
+                      isFavorite(selectedCourse.id)
+                        ? "text-red-500 fill-red-500"
+                        : "text-gray-500"
+                    }`}
+                  />
+                </Button>
+              </div>
+            </DialogHeader>
+            <div className="space-y-4 py-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <p className="text-sm font-medium">教員</p>
+                  <p className="text-sm">{selectedCourse.instructor}</p>
+                </div>
+                <div className="space-y-1">
+                  <p className="text-sm font-medium">学期</p>
+                  <p className="text-sm">{selectedCourse.term}</p>
+                </div>
+                <div className="space-y-1">
+                  <p className="text-sm font-medium">曜日</p>
+                  <p className="text-sm">{selectedCourse.days}</p>
+                </div>
+                <div className="space-y-1">
+                  <p className="text-sm font-medium">時間</p>
+                  <p className="text-sm">{selectedCourse.time}</p>
+                </div>
+              </div>
+
+              <div className="flex space-x-4">
+                <div className="flex-1 bg-gray-100 p-3 rounded-md text-center">
+                  <div className="flex items-center justify-center mb-1">
+                    <Star className="w-5 h-5 text-yellow-500 mr-1" />
+                    <span className="font-bold text-lg">
+                      {selectedCourse.rating.toFixed(1)}
+                    </span>
+                  </div>
+                  <p className="text-xs text-gray-500">評価</p>
+                </div>
+
+                <div className="flex-1 bg-gray-100 p-3 rounded-md text-center">
+                  <div className="flex items-center justify-center mb-1">
+                    <Clock className="w-5 h-5 text-blue-500 mr-1" />
+                    <span className="font-bold text-lg">
+                      {selectedCourse.workload.toFixed(1)}
+                    </span>
+                  </div>
+                  <p className="text-xs text-gray-500">作業量</p>
+                </div>
+              </div>
+
+              {selectedCourse.japaneseComments && (
+                <div className="mt-4 space-y-1">
+                  <p className="text-sm font-medium">コメント</p>
+                  <div className="bg-gray-50 p-3 rounded-md text-sm h-40 overflow-y-scroll">
+                    {selectedCourse.japaneseComments}
+                  </div>
+                </div>
+              )}
+            </div>
+          </DialogContent>
+        )}
+      </Dialog>
     </div>
   );
 };

@@ -6,6 +6,7 @@ import { useFavorites } from "@/hooks/use-favorite";
 import CourseList from "@/components/course-list";
 import WeeklySchedule from "@/components/weeklyschedule";
 import { fetchCourseData } from "@/lib/data";
+import Link from "next/link";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function FavoritesPage() {
@@ -46,30 +47,45 @@ export default function FavoritesPage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold mb-4">お気に入りの講座</h1>
+      <div className="flex items-center mb-6">
+        <Link
+          href="/"
+          className="flex items-center text-blue-600 hover:text-blue-800 mr-4">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5 mr-1"
+            viewBox="0 0 20 20"
+            fill="currentColor">
+            <path
+              fillRule="evenodd"
+              d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </Link>
+        <h1 className="text-2xl font-bold">Favorite Courses</h1>
+      </div>
 
       <Tabs defaultValue="spring">
         <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="spring">春学期</TabsTrigger>
-          <TabsTrigger value="fall">秋学期</TabsTrigger>
-          <TabsTrigger value="other">その他</TabsTrigger>
+          <TabsTrigger value="spring">Spring</TabsTrigger>
+          <TabsTrigger value="fall">Fall</TabsTrigger>
+          <TabsTrigger value="other">Others</TabsTrigger>
         </TabsList>
 
         {/* 春学期 */}
         <TabsContent value="spring">
           <Tabs defaultValue="spring-list">
             <TabsList className="grid w-full grid-cols-2 my-4">
-              <TabsTrigger value="spring-list">リスト</TabsTrigger>
-              <TabsTrigger value="spring-schedule">スケジュール</TabsTrigger>
+              <TabsTrigger value="spring-list">List</TabsTrigger>
+              <TabsTrigger value="spring-schedule">Schedule</TabsTrigger>
             </TabsList>
 
             <TabsContent value="spring-list">
               {springCourses.length > 0 ? (
                 <CourseList courses={springCourses} />
               ) : (
-                <p className="text-center text-gray-500">
-                  春学期のお気に入り講座はありません
-                </p>
+                <p className="text-center text-gray-500">No Fav Yet</p>
               )}
             </TabsContent>
 
@@ -77,9 +93,7 @@ export default function FavoritesPage() {
               {springCourses.length > 0 ? (
                 <WeeklySchedule courses={springCourses} />
               ) : (
-                <p className="text-center text-gray-500">
-                  春学期のお気に入り講座はありません
-                </p>
+                <p className="text-center text-gray-500">No Fav Yet</p>
               )}
             </TabsContent>
           </Tabs>
@@ -89,17 +103,15 @@ export default function FavoritesPage() {
         <TabsContent value="fall">
           <Tabs defaultValue="fall-list">
             <TabsList className="grid w-full grid-cols-2 my-4">
-              <TabsTrigger value="fall-list">リスト</TabsTrigger>
-              <TabsTrigger value="fall-schedule">スケジュール</TabsTrigger>
+              <TabsTrigger value="fall-list">List</TabsTrigger>
+              <TabsTrigger value="fall-schedule">Schedule</TabsTrigger>
             </TabsList>
 
             <TabsContent value="fall-list">
               {fallCourses.length > 0 ? (
                 <CourseList courses={fallCourses} />
               ) : (
-                <p className="text-center text-gray-500">
-                  秋学期のお気に入り講座はありません
-                </p>
+                <p className="text-center text-gray-500">No Fav Yet</p>
               )}
             </TabsContent>
 
@@ -107,9 +119,7 @@ export default function FavoritesPage() {
               {fallCourses.length > 0 ? (
                 <WeeklySchedule courses={fallCourses} />
               ) : (
-                <p className="text-center text-gray-500">
-                  秋学期のお気に入り講座はありません
-                </p>
+                <p className="text-center text-gray-500">No Fav Yet</p>
               )}
             </TabsContent>
           </Tabs>
@@ -120,9 +130,7 @@ export default function FavoritesPage() {
           {otherCourses.length > 0 ? (
             <CourseList courses={otherCourses} />
           ) : (
-            <p className="text-center text-gray-500">
-              その他のお気に入り講座はありません
-            </p>
+            <p className="text-center text-gray-500">No Fav Yet</p>
           )}
         </TabsContent>
       </Tabs>

@@ -62,7 +62,9 @@ export default function HomePage() {
 
   return (
     <main className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8 text-center">大学講座情報</h1>
+      <h1 className="text-3xl font-bold mb-8 text-center">
+        KCF Kennedy Course Finder
+      </h1>
 
       {isLoading ? (
         <div className="flex justify-center my-12">
@@ -78,11 +80,11 @@ export default function HomePage() {
         <>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
             <div className="bg-white p-6 rounded-lg shadow-md">
-              <h2 className="text-xl font-semibold mb-4">講座検索</h2>
+              <h2 className="text-xl font-semibold mb-4">Search</h2>
               <SearchForm onSearch={handleSearch} courses={courses} />
             </div>
             <div className="bg-white p-6 rounded-lg shadow-md">
-              <h2 className="text-xl font-semibold mb-4">評価と作業量の分布</h2>
+              <h2 className="text-xl font-semibold mb-4">Rating / Workload</h2>
               <CourseChart courses={filteredCourses} />
             </div>
           </div>
@@ -90,13 +92,13 @@ export default function HomePage() {
           <div className="bg-white p-6 rounded-lg shadow-md">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-xl font-semibold">
-                講座一覧 ({filteredCourses.length}件)
+                Courses ({filteredCourses.length}件)
               </h2>
               <Link
                 href="/favorite"
                 className="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors">
                 <Heart className="h-5 w-5" />
-                <span>お気に入り</span>
+                <span>FAVs</span>
               </Link>
             </div>
             <CourseList courses={filteredCourses} />

@@ -58,11 +58,11 @@ export default function SearchForm({ onSearch, courses }: SearchFormProps) {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="space-y-2">
-        <Label htmlFor="query">キーワード検索</Label>
+        <Label htmlFor="query">Keywords</Label>
         <Input
           id="query"
           type="text"
-          placeholder="講座名、教員名、コメントで検索"
+          placeholder="name、instructor、comments"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
@@ -70,13 +70,13 @@ export default function SearchForm({ onSearch, courses }: SearchFormProps) {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="space-y-2">
-          <Label htmlFor="department">学部</Label>
+          <Label htmlFor="department">Section</Label>
           <Select value={department} onValueChange={setDepartment}>
             <SelectTrigger id="department">
-              <SelectValue placeholder="学部を選択" />
+              <SelectValue placeholder="Select Section" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">すべて</SelectItem>
+              <SelectItem value="all">All</SelectItem>
               {departments.map((dept) => (
                 <SelectItem key={dept} value={dept}>
                   {dept}
@@ -87,13 +87,13 @@ export default function SearchForm({ onSearch, courses }: SearchFormProps) {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="term">学期</Label>
+          <Label htmlFor="term">Term</Label>
           <Select value={term} onValueChange={setTerm}>
             <SelectTrigger id="term">
-              <SelectValue placeholder="学期を選択" />
+              <SelectValue placeholder="Select Term" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">すべて</SelectItem>
+              <SelectItem value="all">All</SelectItem>
               {terms.map((t) => (
                 <SelectItem key={t} value={t}>
                   {t}
@@ -106,10 +106,10 @@ export default function SearchForm({ onSearch, courses }: SearchFormProps) {
 
       <div className="flex gap-2">
         <Button type="submit" className="flex-1">
-          検索
+          Find Courses
         </Button>
         <Button type="button" variant="outline" onClick={handleReset}>
-          リセット
+          Reset
         </Button>
       </div>
     </form>
