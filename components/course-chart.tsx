@@ -215,74 +215,82 @@ export default function CourseChart({ courses }: CourseChartProps) {
       {/* Chart Header and Chart Side by Side */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Chart Header */}
-        <div className="bg-gradient-to-r from-[#A51C30] to-[#8B1538] p-6 rounded-2xl shadow-lg">
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center space-x-3">
-              <BarChart3 className="h-6 w-6 text-white" />
-              <h3 className="text-lg font-bold text-white">
+        <div className="bg-gradient-to-r from-[#A51C30] to-[#8B1538] p-4 lg:p-6 rounded-2xl shadow-lg">
+          <div className="flex flex-col sm:flex-row lg:flex-col items-start lg:items-stretch justify-between mb-4 lg:mb-6">
+            <div className="flex items-center space-x-3 mb-2 lg:mb-0">
+              <BarChart3 className="h-5 w-5 lg:h-6 lg:w-6 text-white" />
+              <h3 className="text-base lg:text-lg font-bold text-white">
                 Rating & Workload Analysis
               </h3>
             </div>
-            <div className="flex items-center space-x-2 text-white/80 text-sm">
-              <MousePointer className="h-4 w-4" />
+            <div className="flex items-center space-x-2 text-white/80 text-xs lg:text-sm">
+              <MousePointer className="h-3 w-3 lg:h-4 lg:w-4" />
               <span>Click points</span>
             </div>
           </div>
 
           {/* Stats Grid */}
-          <div className="space-y-4">
-            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3">
-              <div className="flex items-center space-x-2">
-                <TrendingUp className="h-4 w-4 text-green-300" />
-                <span className="text-white/80 text-sm">Avg Rating</span>
+          <div className="grid grid-cols-3 lg:grid-cols-1 gap-2 lg:gap-4">
+            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-2 lg:p-3">
+              <div className="flex items-center space-x-1 lg:space-x-2">
+                <TrendingUp className="h-3 w-3 lg:h-4 lg:w-4 text-green-300" />
+                <span className="text-white/80 text-xs lg:text-sm">
+                  Avg Rating
+                </span>
               </div>
-              <p className="text-2xl font-bold text-white">
+              <p className="text-lg lg:text-2xl font-bold text-white">
                 {avgRating.toFixed(1)}
               </p>
             </div>
 
-            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3">
-              <div className="flex items-center space-x-2">
-                <Target className="h-4 w-4 text-blue-300" />
-                <span className="text-white/80 text-sm">Avg Workload</span>
+            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-2 lg:p-3">
+              <div className="flex items-center space-x-1 lg:space-x-2">
+                <Target className="h-3 w-3 lg:h-4 lg:w-4 text-blue-300" />
+                <span className="text-white/80 text-xs lg:text-sm">
+                  Avg Workload
+                </span>
               </div>
-              <p className="text-2xl font-bold text-white">
+              <p className="text-lg lg:text-2xl font-bold text-white">
                 {avgWorkload.toFixed(1)}
               </p>
             </div>
 
-            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3">
-              <div className="flex items-center space-x-2">
-                <div className="h-4 w-4 bg-green-400 rounded-full"></div>
-                <span className="text-white/80 text-sm">Best Courses</span>
+            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-2 lg:p-3">
+              <div className="flex items-center space-x-1 lg:space-x-2">
+                <div className="h-3 w-3 lg:h-4 lg:w-4 bg-green-400 rounded-full"></div>
+                <span className="text-white/80 text-xs lg:text-sm">
+                  Best Courses
+                </span>
               </div>
-              <p className="text-2xl font-bold text-white">{bestCourses}</p>
+              <p className="text-lg lg:text-2xl font-bold text-white">
+                {bestCourses}
+              </p>
             </div>
           </div>
         </div>
 
         {/* Chart Container */}
-        <div className="lg:col-span-2 bg-white rounded-2xl shadow-lg border border-gray-200 p-6">
-          <div className="w-full h-80">
+        <div className="lg:col-span-2 bg-white rounded-2xl shadow-lg border border-gray-200 p-4 lg:p-6">
+          <div className="w-full h-64 lg:h-80">
             <canvas ref={chartRef}></canvas>
           </div>
 
           {/* Legend */}
-          <div className="mt-4 flex items-center justify-center space-x-6 text-sm">
-            <div className="flex items-center space-x-2">
-              <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-3 lg:gap-6 text-xs lg:text-sm">
+            <div className="flex items-center space-x-1 lg:space-x-2">
+              <div className="w-2 h-2 lg:w-3 lg:h-3 bg-green-500 rounded-full"></div>
               <span className="text-gray-600">High Rating, Low Workload</span>
             </div>
-            <div className="flex items-center space-x-2">
-              <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+            <div className="flex items-center space-x-1 lg:space-x-2">
+              <div className="w-2 h-2 lg:w-3 lg:h-3 bg-yellow-500 rounded-full"></div>
               <span className="text-gray-600">High Rating</span>
             </div>
-            <div className="flex items-center space-x-2">
-              <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+            <div className="flex items-center space-x-1 lg:space-x-2">
+              <div className="w-2 h-2 lg:w-3 lg:h-3 bg-red-500 rounded-full"></div>
               <span className="text-gray-600">High Workload</span>
             </div>
-            <div className="flex items-center space-x-2">
-              <div className="w-3 h-3 bg-[#A51C30] rounded-full"></div>
+            <div className="flex items-center space-x-1 lg:space-x-2">
+              <div className="w-2 h-2 lg:w-3 lg:h-3 bg-[#A51C30] rounded-full"></div>
               <span className="text-gray-600">Standard</span>
             </div>
           </div>

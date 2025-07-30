@@ -63,27 +63,26 @@ export default function SearchForm({ onSearch, courses }: SearchFormProps) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <div className="flex flex-col lg:flex-row gap-4 items-end">
-        {/* Keywords */}
-        <div className="flex-1 min-w-0">
-          <Label htmlFor="query" className="text-xs text-gray-600 mb-1 block">
-            Keywords
-          </Label>
-          <Input
-            id="query"
-            type="text"
-            placeholder="Course name, instructor, comments..."
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            className="h-10"
-          />
-        </div>
+      {/* Keywords - Full width on mobile */}
+      <div className="space-y-2">
+        <Label htmlFor="query" className="text-xs text-gray-600">
+          Keywords
+        </Label>
+        <Input
+          id="query"
+          type="text"
+          placeholder="Course name, instructor, comments..."
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          className="h-10"
+        />
+      </div>
 
+      {/* Filters - Grid layout */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {/* Department */}
-        <div className="w-48">
-          <Label
-            htmlFor="department"
-            className="text-xs text-gray-600 mb-1 block">
+        <div className="space-y-2">
+          <Label htmlFor="department" className="text-xs text-gray-600">
             Section
           </Label>
           <Select value={department} onValueChange={setDepartment}>
@@ -102,10 +101,8 @@ export default function SearchForm({ onSearch, courses }: SearchFormProps) {
         </div>
 
         {/* Semester */}
-        <div className="w-32">
-          <Label
-            htmlFor="semester"
-            className="text-xs text-gray-600 mb-1 block">
+        <div className="space-y-2">
+          <Label htmlFor="semester" className="text-xs text-gray-600">
             Semester
           </Label>
           <Select value={semester} onValueChange={setSemester}>
@@ -124,8 +121,8 @@ export default function SearchForm({ onSearch, courses }: SearchFormProps) {
         </div>
 
         {/* Term */}
-        <div className="w-32">
-          <Label htmlFor="term" className="text-xs text-gray-600 mb-1 block">
+        <div className="space-y-2">
+          <Label htmlFor="term" className="text-xs text-gray-600">
             Term
           </Label>
           <Select value={term} onValueChange={setTerm}>
@@ -142,23 +139,23 @@ export default function SearchForm({ onSearch, courses }: SearchFormProps) {
             </SelectContent>
           </Select>
         </div>
+      </div>
 
-        {/* Buttons */}
-        <div className="flex gap-2">
-          <Button type="submit" size="sm" className="h-10 px-4">
-            <Search className="h-4 w-4 mr-2" />
-            Search
-          </Button>
-          <Button
-            type="button"
-            variant="outline"
-            size="sm"
-            onClick={handleReset}
-            className="h-10 px-4">
-            <X className="h-4 w-4 mr-2" />
-            Reset
-          </Button>
-        </div>
+      {/* Buttons - Full width on mobile */}
+      <div className="flex flex-col sm:flex-row gap-2">
+        <Button type="submit" size="sm" className="h-10 flex-1">
+          <Search className="h-4 w-4 mr-2" />
+          Search
+        </Button>
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          onClick={handleReset}
+          className="h-10 flex-1 sm:flex-none sm:px-6">
+          <X className="h-4 w-4 mr-2" />
+          Reset
+        </Button>
       </div>
     </form>
   );
