@@ -80,11 +80,15 @@ const CourseModal: React.FC<CourseModalProps> = ({
 
           <div className="mt-4 grid grid-cols-2 gap-4">
             <div className="space-y-1">
-              <p className="text-sm font-medium">教員</p>
+              <p className="text-sm font-medium">instructor</p>
               <p className="text-sm">{course.instructor}</p>
             </div>
             <div className="space-y-1">
-              <p className="text-sm font-medium">学期</p>
+              <p className="text-sm font-medium">semester</p>
+              <p className="text-sm">{course.semester}</p>
+            </div>
+            <div className="space-y-1">
+              <p className="text-sm font-medium">term</p>
               <p className="text-sm">{course.term}</p>
             </div>
             <div className="space-y-1">

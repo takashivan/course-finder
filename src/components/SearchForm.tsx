@@ -47,7 +47,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSearch, courses }) => {
         <input
           id="query"
           type="text"
-          placeholder="講座名、教員名、コメントで検索"
+          placeholder="Course Name, Instructor Name, Comments"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"

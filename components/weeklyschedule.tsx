@@ -203,19 +203,23 @@ const WeeklySchedule = ({ courses }: { courses: Course[] }) => {
             <div className="space-y-4 py-4">
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <p className="text-sm font-medium">教員</p>
+                  <p className="text-sm font-medium">instructor</p>
                   <p className="text-sm">{selectedCourse.instructor}</p>
                 </div>
                 <div className="space-y-1">
-                  <p className="text-sm font-medium">学期</p>
+                  <p className="text-sm font-medium">semester</p>
                   <p className="text-sm">{selectedCourse.term}</p>
                 </div>
                 <div className="space-y-1">
-                  <p className="text-sm font-medium">曜日</p>
+                  <p className="text-sm font-medium">term</p>
+                  <p className="text-sm">{selectedCourse.term}</p>
+                </div>
+                <div className="space-y-1">
+                  <p className="text-sm font-medium">days</p>
                   <p className="text-sm">{selectedCourse.days}</p>
                 </div>
                 <div className="space-y-1">
-                  <p className="text-sm font-medium">時間</p>
+                  <p className="text-sm font-medium">time</p>
                   <p className="text-sm">{selectedCourse.time}</p>
                 </div>
               </div>

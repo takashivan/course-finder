@@ -3,7 +3,7 @@
 import type React from "react";
 
 import { useState, useEffect } from "react";
-import { getDepartments, getTerms } from "@/lib/data";
+import { getDepartments, getTerms, getSemesters } from "@/lib/data";
 import type { Course } from "@/types/course";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -15,6 +15,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
+import { Search, X } from "lucide-react";
 
 interface SearchFormProps {
   onSearch: (params: any) => void;
@@ -25,13 +26,16 @@ export default function SearchForm({ onSearch, courses }: SearchFormProps) {
   const [query, setQuery] = useState("");
   const [department, setDepartment] = useState("");
   const [term, setTerm] = useState("");
+  const [semester, setSemester] = useState("");
   const [departments, setDepartments] = useState<string[]>([]);
   const [terms, setTerms] = useState<string[]>([]);
+  const [semesters, setSemesters] = useState<string[]>([]);
 
   useEffect(() => {
     if (courses.length > 0) {
       setDepartments(getDepartments(courses));
       setTerms(getTerms(courses));
+      setSemesters(getSemesters(courses));
     }
   }, [courses]);
 
@@ -43,6 +47,7 @@ export default function SearchForm({ onSearch, courses }: SearchFormProps) {
       query,
       department: department === "all" ? "" : department,
       term: term === "all" ? "" : term,
+      semester: semesters.length > 0 ? semesters : "",
     };
 
     onSearch(searchParams);
@@ -52,31 +57,41 @@ export default function SearchForm({ onSearch, courses }: SearchFormProps) {
     setQuery("");
     setDepartment("");
     setTerm("");
+    setSemester("");
     onSearch({});
   };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <div className="space-y-2">
-        <Label htmlFor="query">Keywords</Label>
-        <Input
-          id="query"
-          type="text"
-          placeholder="name、instructor、comments"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-        />
-      </div>
+      <div className="flex flex-col lg:flex-row gap-4 items-end">
+        {/* Keywords */}
+        <div className="flex-1 min-w-0">
+          <Label htmlFor="query" className="text-xs text-gray-600 mb-1 block">
+            Keywords
+          </Label>
+          <Input
+            id="query"
+            type="text"
+            placeholder="Course name, instructor, comments..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            className="h-10"
+          />
+        </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="space-y-2">
-          <Label htmlFor="department">Section</Label>
+        {/* Department */}
+        <div className="w-48">
+          <Label
+            htmlFor="department"
+            className="text-xs text-gray-600 mb-1 block">
+            Section
+          </Label>
           <Select value={department} onValueChange={setDepartment}>
-            <SelectTrigger id="department">
-              <SelectValue placeholder="Select Section" />
+            <SelectTrigger id="department" className="h-10">
+              <SelectValue placeholder="All Sections" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">All</SelectItem>
+              <SelectItem value="all">All Sections</SelectItem>
               {departments.map((dept) => (
                 <SelectItem key={dept} value={dept}>
                   {dept}
@@ -86,11 +101,36 @@ export default function SearchForm({ onSearch, courses }: SearchFormProps) {
           </Select>
         </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="term">Term</Label>
+        {/* Semester */}
+        <div className="w-32">
+          <Label
+            htmlFor="semester"
+            className="text-xs text-gray-600 mb-1 block">
+            Semester
+          </Label>
+          <Select value={semester} onValueChange={setSemester}>
+            <SelectTrigger id="semester" className="h-10">
+              <SelectValue placeholder="All" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All</SelectItem>
+              {semesters.map((s) => (
+                <SelectItem key={s} value={s}>
+                  {s}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+
+        {/* Term */}
+        <div className="w-32">
+          <Label htmlFor="term" className="text-xs text-gray-600 mb-1 block">
+            Term
+          </Label>
           <Select value={term} onValueChange={setTerm}>
-            <SelectTrigger id="term">
-              <SelectValue placeholder="Select Term" />
+            <SelectTrigger id="term" className="h-10">
+              <SelectValue placeholder="All" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All</SelectItem>
@@ -102,15 +142,23 @@ export default function SearchForm({ onSearch, courses }: SearchFormProps) {
             </SelectContent>
           </Select>
         </div>
-      </div>
 
-      <div className="flex gap-2">
-        <Button type="submit" className="flex-1">
-          Find Courses
-        </Button>
-        <Button type="button" variant="outline" onClick={handleReset}>
-          Reset
-        </Button>
+        {/* Buttons */}
+        <div className="flex gap-2">
+          <Button type="submit" size="sm" className="h-10 px-4">
+            <Search className="h-4 w-4 mr-2" />
+            Search
+          </Button>
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={handleReset}
+            className="h-10 px-4">
+            <X className="h-4 w-4 mr-2" />
+            Reset
+          </Button>
+        </div>
       </div>
     </form>
   );
