@@ -98,11 +98,13 @@ const WeeklySchedule = ({ courses }: { courses: Course[] }) => {
 
       {/* 時間帯 */}
       {[
-        "08:30-10:00",
-        "10:30-12:00",
-        "13:00-14:30",
-        "15:00-16:30",
-        "17:00-18:30",
+        "09:00-10:15",
+        "10:30-11:45",
+        "12:00-13:15",
+        "13:30-14:45",
+        "15:00-16:15",
+        "16:30-17:45",
+        "18:00-19:15",
       ].map((timeSlot) => (
         <div key={timeSlot} className="grid grid-cols-8 text-center">
           <div className="p-2 border-r bg-gray-50">{timeSlot}</div>
